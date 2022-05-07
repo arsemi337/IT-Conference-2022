@@ -11,11 +11,23 @@ public class LoadDatabase {
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
     @Bean
-    CommandLineRunner initDatabase(UserRepository repository) {
+    CommandLineRunner initDatabase(UserRepository userRepository, LectureRepository lectureRepository, RegistrationRepository registrationRepository) {
 
         return args -> {
-            log.info("Preloading " + repository.save(new User("Thief", "thief@email.com")));
-            log.info("Preloading " + repository.save(new User("Crust", "crust@email.com")));
+            log.info("Preloading " + userRepository.save(new User("Thief", "thief@email.com")));
+            log.info("Preloading " + userRepository.save(new User("Crust", "crust@email.com")));
+
+            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00"))));
+
+            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00"))));
+
+            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00"))));
         };
     }
 }

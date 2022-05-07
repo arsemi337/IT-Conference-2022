@@ -10,10 +10,11 @@ CREATE TABLE USERS (
 
 
 CREATE TABLE LECTURES (
-                          id UUID PRIMARY KEY,
-                          topic VARCHAR(100) NOT NULL,
-                          startTime VARCHAR(5) NOT NULL,
-                          availablePlaces INT NOT NULL
+    id UUID PRIMARY KEY,
+    path VARCHAR(100) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    startTime VARCHAR(5) NOT NULL,
+    availablePlaces INT NOT NULL
 );
 
 CREATE TABLE REGISTRATIONS (

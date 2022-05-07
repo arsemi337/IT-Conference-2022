@@ -7,15 +7,15 @@ import java.util.List;
 
 @RestController
 public class UserController {
-    private final UserRepository repository;
+    private final UserService userService;
 
-    UserController(UserRepository repository)
+    UserController(UserService userService)
     {
-        this.repository = repository;
+        this.userService = userService;
     }
 
     @GetMapping("/users")
     List<User> all()  {
-        return repository.findAll();
+        return userService.getAll();
     }
 }

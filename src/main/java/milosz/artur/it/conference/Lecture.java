@@ -10,8 +10,10 @@ public class Lecture {
     @GeneratedValue
     @Column(name = "id")
     private UUID id;
-    @Column(name = "topic")
-    private String topic;
+    @Column(name = "path")
+    private String path;
+    @Column(name = "title")
+    private String title;
     @Column(name = "startTime")
     private String startTime;
     @Column(name = "availablePlaces")
@@ -19,9 +21,10 @@ public class Lecture {
 
     public Lecture() {}
 
-    public Lecture(String topic, String startTime)
+    public Lecture(String path, String title, String startTime)
     {
-        this.topic = topic;
+        this.path = path;
+        this.title = title;
         this.startTime = startTime;
         this.availablePlaces = 5;
     }
@@ -30,8 +33,12 @@ public class Lecture {
         return id;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getPath() {
+        return path;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getStartTime() {
@@ -46,8 +53,12 @@ public class Lecture {
         this.id = id;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setStartTime(String startTime) {
