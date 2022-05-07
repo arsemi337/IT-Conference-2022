@@ -1,4 +1,4 @@
-package milosz.artur.it.conference;
+package milosz.artur.it.conference.lecture;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -67,5 +67,13 @@ public class Lecture {
 
     public void setAvailablePlaces(int availablePlaces) {
         this.availablePlaces = availablePlaces;
+    }
+
+    @Override
+    public String toString() {
+        return "Path='" + path + '\'' +
+                ", title='" + title + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", availablePlaces=" + availablePlaces;
     }
 }

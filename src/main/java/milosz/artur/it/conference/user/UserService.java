@@ -1,4 +1,4 @@
-package milosz.artur.it.conference;
+package milosz.artur.it.conference.user;
 
 import org.springframework.stereotype.Service;
 
