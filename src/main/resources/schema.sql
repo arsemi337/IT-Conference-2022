@@ -8,17 +8,18 @@ CREATE TABLE USERS (
     email VARCHAR(320) NOT NULL
 );
 
+
+CREATE TABLE LECTURES (
+                          id UUID PRIMARY KEY,
+                          topic VARCHAR(100) NOT NULL,
+                          startTime VARCHAR(5) NOT NULL,
+                          availablePlaces INT NOT NULL
+);
+
 CREATE TABLE REGISTRATIONS (
     id UUID PRIMARY KEY,
     userId UUID NOT NULL,
     lectureId UUID NOT NULL,
     FOREIGN KEY (userId) REFERENCES USERS(id),
     FOREIGN KEY (lectureId) REFERENCES LECTURES(id)
-);
-
-CREATE TABLE LECTURES (
-    id UUID PRIMARY KEY,
-    topic VARCHAR(100) NOT NULL,
-    startTime VARCHAR(5) NOT NULL,
-    availablePlaces INT NOT NULL
 );
