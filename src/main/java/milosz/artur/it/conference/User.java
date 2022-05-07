@@ -10,7 +10,9 @@ public class User {
     @GeneratedValue
     @Column(name = "id")
     private UUID id;
+    @Column(name = "login")
     private String login;
+    @Column(name = "email")
     private String email;
 
     public User() {}
