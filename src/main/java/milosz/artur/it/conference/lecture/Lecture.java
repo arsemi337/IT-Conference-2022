@@ -71,7 +71,8 @@ public class Lecture {
 
     @Override
     public String toString() {
-        return "Path='" + path + '\'' +
+        return "id='" + id + '\'' +
+                ", path='" + path + '\'' +
                 ", title='" + title + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", availablePlaces=" + availablePlaces;

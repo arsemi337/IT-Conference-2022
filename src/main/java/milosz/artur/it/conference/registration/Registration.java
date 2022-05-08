@@ -11,13 +11,13 @@ public class Registration {
     @Column(name = "id")
     private UUID id;
     @Column(name = "userId")
-    private String userId;
+    private UUID userId;
     @Column(name = "lectureId")
-    private String lectureId;
+    private UUID lectureId;
 
     public Registration() {}
 
-    public Registration(String userId, String lectureId)
+    public Registration(UUID userId, UUID lectureId)
     {
         this.userId = userId;
         this.lectureId = lectureId;
@@ -27,11 +27,11 @@ public class Registration {
         return id;
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public String getLectureId() {
+    public UUID getLectureId() {
         return lectureId;
     }
 
@@ -39,11 +39,11 @@ public class Registration {
         this.id = id;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
-    public void setLectureId(String lectureId) {
+    public void setLectureId(UUID lectureId) {
         this.lectureId = lectureId;
     }
 }

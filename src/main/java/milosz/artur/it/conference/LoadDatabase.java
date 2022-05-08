@@ -2,6 +2,7 @@ package milosz.artur.it.conference;
 
 import milosz.artur.it.conference.lecture.Lecture;
 import milosz.artur.it.conference.lecture.LectureRepository;
+import milosz.artur.it.conference.registration.Registration;
 import milosz.artur.it.conference.registration.RegistrationRepository;
 import milosz.artur.it.conference.user.User;
 import milosz.artur.it.conference.user.UserRepository;
