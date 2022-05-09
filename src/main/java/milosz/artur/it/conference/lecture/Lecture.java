@@ -69,6 +69,11 @@ public class Lecture {
         this.availablePlaces = availablePlaces;
     }
 
+    public void decreaseAvailablePlacesNumber()
+    {
+        this.availablePlaces -= 1;
+    }
+
     @Override
     public String toString() {
         return "id='" + id + '\'' +

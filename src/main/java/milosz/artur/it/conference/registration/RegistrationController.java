@@ -37,6 +37,7 @@ public class RegistrationController {
 
         if (lectureService.canRegister(lecture))
         {
+            lectureService.decreaseAvailablePlacesNumber(lecture);
             registrationService.createRegistration(user, lecture);
             return ResponseEntity.status(HttpStatus.OK).body("Dokonano rezerwacji");
         } else {

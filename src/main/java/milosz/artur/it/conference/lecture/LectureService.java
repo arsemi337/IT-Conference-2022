@@ -58,4 +58,10 @@ public class LectureService {
     {
         return lecture.getAvailablePlaces() > 0;
     }
+
+    public void decreaseAvailablePlacesNumber(Lecture lecture)
+    {
+        lecture.decreaseAvailablePlacesNumber();
+        lectureRepository.save(lecture);
+    }
 }
