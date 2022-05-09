@@ -1,6 +1,7 @@
 package milosz.artur.it.conference.lecture;
 
 import milosz.artur.it.conference.lecture.ex.LectureNotFoundException;
+import milosz.artur.it.conference.models.ConferenceResponse;
 import milosz.artur.it.conference.registration.Registration;
 import milosz.artur.it.conference.registration.RegistrationRepository;
 import milosz.artur.it.conference.user.User;
@@ -35,20 +36,21 @@ public class LectureService {
         return lectureRepository.findAll();
     }
 
-    public String conferencePlan()  {
-        StringBuilder conferencePlan;
-        conferencePlan = new StringBuilder("Date: 01.06.2022\n" +
-                "Each lecture lasts 1h 45 min.\n" +
-                "The lecture time slots are:\n" +
-                "10:00 - 11:45\n" +
-                "12:00 - 13:45\n" +
-                "14:00 - 15:45\n" +
-                "Lectures:\n");
-        for (Lecture lecture : this.getAll())
-        {
-            conferencePlan.append(lecture.toString()).append('\n');
-        }
-        return conferencePlan.toString();
+    public ConferenceResponse conferencePlan()  {
+//        StringBuilder conferencePlan;
+//        conferencePlan = new StringBuilder("Date: 01.06.2022\n" +
+//                "Each lecture lasts 1h 45 min.\n" +
+//                "The lecture time slots are:\n" +
+//                "10:00 - 11:45\n" +
+//                "12:00 - 13:45\n" +
+//                "14:00 - 15:45\n" +
+//                "Lectures:\n");
+//        for (Lecture lecture : this.getAll())
+//        {
+//            conferencePlan.append(lecture.toString()).append('\n');
+//        }
+        ConferenceResponse conferenceResponse = new ConferenceResponse(this.getAll());
+        return conferenceResponse;
     }
 
     public List<Lecture> getLecturesOfUserByLogin(String login)

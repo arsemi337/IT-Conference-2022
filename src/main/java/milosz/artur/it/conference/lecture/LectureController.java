@@ -1,5 +1,6 @@
 package milosz.artur.it.conference.lecture;
 
+import milosz.artur.it.conference.models.ConferenceResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ public class LectureController {
     }
 
     @GetMapping("/lectures/conferenceInfo")
-    String conferenceInfo()
+    ConferenceResponse conferenceInfo()
     {
         return lectureService.conferencePlan();
     }
