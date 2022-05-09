@@ -9,10 +9,11 @@ import milosz.artur.it.conference.user.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class LectureService {

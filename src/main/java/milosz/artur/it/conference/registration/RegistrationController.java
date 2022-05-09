@@ -8,6 +8,8 @@ import milosz.artur.it.conference.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,8 +32,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registrations/create")
-    ResponseEntity<String> createRegistration(@RequestBody CreateRegistrationRequest createRegistrationRequest)
-    {
+    ResponseEntity<String> createRegistration(@RequestBody CreateRegistrationRequest createRegistrationRequest) throws IOException {
         Lecture lecture = lectureService.findById(createRegistrationRequest.getLectureId());
         User user = userService.tryToCreateNewUser(createRegistrationRequest.getUserLogin(), createRegistrationRequest.getUserEmail());
 
@@ -39,6 +40,7 @@ public class RegistrationController {
         {
             lectureService.decreaseAvailablePlacesNumber(lecture);
             registrationService.createRegistration(user, lecture);
+            registrationService.sendConfirmationEmail(user);
             return ResponseEntity.status(HttpStatus.OK).body("Dokonano rezerwacji");
         } else {
             return ResponseEntity.badRequest().body("Nie dokonano rezerwacji. Wszystkie miejsca na tym wykładzie są już zajęte. ");
