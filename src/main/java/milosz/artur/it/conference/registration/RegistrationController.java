@@ -2,24 +2,25 @@ package milosz.artur.it.conference.registration;
 
 import milosz.artur.it.conference.lecture.Lecture;
 import milosz.artur.it.conference.lecture.LectureService;
+import milosz.artur.it.conference.models.CreateRegistrationRequest;
+import milosz.artur.it.conference.user.User;
 import milosz.artur.it.conference.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 public class RegistrationController {
     private final RegistrationService registrationService;
     private final LectureService lectureService;
+    private final UserService userService;
 
-    RegistrationController(RegistrationService registrationService, LectureService lectureService)
+    RegistrationController(RegistrationService registrationService, LectureService lectureService, UserService userService)
     {
         this.registrationService = registrationService;
         this.lectureService = lectureService;
+        this.userService = userService;
     }
 
     @GetMapping("registrations")
@@ -29,16 +30,17 @@ public class RegistrationController {
     }
 
     @PostMapping("/registrations/create")
-    ResponseEntity<String> createRegistration(@RequestParam UUID uuid)
+    ResponseEntity<String> createRegistration(@RequestBody CreateRegistrationRequest createRegistrationRequest)
     {
-        Lecture lecture = lectureService.findById(uuid);
+        Lecture lecture = lectureService.findById(createRegistrationRequest.getLectureId());
+        User user = userService.tryToCreateNewUser(createRegistrationRequest.getUserLogin(), createRegistrationRequest.getUserEmail());
 
         if (lectureService.canRegister(lecture))
         {
-            registrationService.createRegistration(lecture);
+            registrationService.createRegistration(user, lecture);
             return ResponseEntity.status(HttpStatus.OK).body("Dokonano rezerwacji");
         } else {
-            return ResponseEntity.badRequest().body("Nie dokonano rezerwacji");
+            return ResponseEntity.badRequest().body("Nie dokonano rezerwacji. Wszystkie miejsca na tym wykładzie są już zajęte. ");
         }
     }
 }

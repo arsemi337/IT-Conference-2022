@@ -21,12 +21,12 @@ public class Lecture {
 
     public Lecture() {}
 
-    public Lecture(String path, String title, String startTime)
+    public Lecture(String path, String title, String startTime, int availablePlaces)
     {
         this.path = path;
         this.title = title;
         this.startTime = startTime;
-        this.availablePlaces = 0;
+        this.availablePlaces = availablePlaces;
     }
 
     public UUID getId() {

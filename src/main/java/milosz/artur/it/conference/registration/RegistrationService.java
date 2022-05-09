@@ -7,7 +7,6 @@ import milosz.artur.it.conference.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -33,20 +32,8 @@ public class RegistrationService {
         return registrationRepository.getRegistrationsByUserId(id);
     }
 
-    public void createRegistration(Lecture lecture)
+    public void createRegistration(User user, Lecture lecture)
     {
-        String login = "Crust";
-        String email = "crust@email.com";
-
-        User user = userRepository.getUserByLoginAndEmail(login, email);
-//        Optional<Lecture> lectureOptional = lectureRepository.findById(lectureId);
-//        Lecture lecture;
-//        if (lectureOptional.isPresent())
-//        {
-//            lecture = lectureOptional.get();
-//            registrationRepository.save(new Registration(user.getId(), lecture.getId()));
-//        }
         registrationRepository.save(new Registration(user.getId(), lecture.getId()));
-
     }
 }

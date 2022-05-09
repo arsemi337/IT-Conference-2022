@@ -2,7 +2,6 @@ package milosz.artur.it.conference;
 
 import milosz.artur.it.conference.lecture.Lecture;
 import milosz.artur.it.conference.lecture.LectureRepository;
-import milosz.artur.it.conference.registration.Registration;
 import milosz.artur.it.conference.registration.RegistrationRepository;
 import milosz.artur.it.conference.user.User;
 import milosz.artur.it.conference.user.UserRepository;
@@ -23,17 +22,17 @@ public class LoadDatabase {
             log.info("Preloading " + userRepository.save(new User("Thief", "thief@email.com")));
             log.info("Preloading " + userRepository.save(new User("Crust", "crust@email.com")));
 
-            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00"))));
-            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00"))));
-            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00", 5))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00", 5))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00", 5))));
 
-            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00"))));
-            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00"))));
-            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00", 5))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00", 5))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00", 5))));
 
-            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00"))));
-            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00"))));
-            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00"))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("First path", "First lecture", "10:00", 5))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Second path", "Second lecture", "12:00", 5))));
+            log.info(("Preloading " + lectureRepository.save(new Lecture("Third path", "Third lecture", "14:00", 5))));
         };
     }
 }

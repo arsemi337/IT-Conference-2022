@@ -6,6 +6,7 @@ import milosz.artur.it.conference.registration.Registration;
 import milosz.artur.it.conference.registration.RegistrationRepository;
 import milosz.artur.it.conference.user.User;
 import milosz.artur.it.conference.user.UserRepository;
+import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,25 +38,12 @@ public class LectureService {
     }
 
     public ConferenceResponse conferencePlan()  {
-//        StringBuilder conferencePlan;
-//        conferencePlan = new StringBuilder("Date: 01.06.2022\n" +
-//                "Each lecture lasts 1h 45 min.\n" +
-//                "The lecture time slots are:\n" +
-//                "10:00 - 11:45\n" +
-//                "12:00 - 13:45\n" +
-//                "14:00 - 15:45\n" +
-//                "Lectures:\n");
-//        for (Lecture lecture : this.getAll())
-//        {
-//            conferencePlan.append(lecture.toString()).append('\n');
-//        }
-        ConferenceResponse conferenceResponse = new ConferenceResponse(this.getAll());
-        return conferenceResponse;
+        return new ConferenceResponse(this.getAll());
     }
 
     public List<Lecture> getLecturesOfUserByLogin(String login)
     {
-        User user = userRepository.getUserByLogin(login);
+        User user = userRepository.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
         List<Registration> registrations = registrationRepository.getRegistrationsByUserId(user.getId());
         List<Lecture> lectures = new ArrayList<>();
         for (Registration registration : registrations)
@@ -68,15 +56,6 @@ public class LectureService {
 
     public boolean canRegister(Lecture lecture)
     {
-//        Optional<Lecture> lectureOptional = lectureRepository.findById(uuid);
-//        Lecture lecture;
-//        if (lectureOptional.isPresent())
-//        {
-//            lecture = lectureOptional.get();
-//        } else {
-//            return false;
-//        }
-
         return lecture.getAvailablePlaces() > 0;
     }
 }
