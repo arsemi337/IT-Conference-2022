@@ -1,5 +1,6 @@
 package milosz.artur.it.conference.lecture;
 
+import milosz.artur.it.conference.lecture.ex.LectureNotFoundException;
 import milosz.artur.it.conference.registration.Registration;
 import milosz.artur.it.conference.registration.RegistrationRepository;
 import milosz.artur.it.conference.user.User;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class LectureService {
@@ -23,12 +25,17 @@ public class LectureService {
         this.registrationRepository = registrationRepository;
     }
 
-    List<Lecture> getAll()
+    public Lecture findById(UUID uuid)
+    {
+        return lectureRepository.findById(uuid).orElseThrow(() -> new LectureNotFoundException(uuid));
+    }
+
+    public List<Lecture> getAll()
     {
         return lectureRepository.findAll();
     }
 
-    String conferencePlan()  {
+    public String conferencePlan()  {
         StringBuilder conferencePlan;
         conferencePlan = new StringBuilder("Date: 01.06.2022\n" +
                 "Each lecture lasts 1h 45 min.\n" +
@@ -44,7 +51,7 @@ public class LectureService {
         return conferencePlan.toString();
     }
 
-    List<Lecture> getLecturesOfUserByLogin(String login)
+    public List<Lecture> getLecturesOfUserByLogin(String login)
     {
         User user = userRepository.getUserByLogin(login);
         List<Registration> registrations = registrationRepository.getRegistrationsByUserId(user.getId());
@@ -55,5 +62,19 @@ public class LectureService {
             lecture.ifPresent(lectures::add);
         }
         return lectures;
+    }
+
+    public boolean canRegister(Lecture lecture)
+    {
+//        Optional<Lecture> lectureOptional = lectureRepository.findById(uuid);
+//        Lecture lecture;
+//        if (lectureOptional.isPresent())
+//        {
+//            lecture = lectureOptional.get();
+//        } else {
+//            return false;
+//        }
+
+        return lecture.getAvailablePlaces() > 0;
     }
 }

@@ -26,7 +26,7 @@ public class Lecture {
         this.path = path;
         this.title = title;
         this.startTime = startTime;
-        this.availablePlaces = 5;
+        this.availablePlaces = 0;
     }
 
     public UUID getId() {

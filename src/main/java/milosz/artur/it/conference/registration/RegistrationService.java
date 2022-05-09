@@ -33,7 +33,7 @@ public class RegistrationService {
         return registrationRepository.getRegistrationsByUserId(id);
     }
 
-    public void createRegistration(UUID lectureId)
+    public void createRegistration(Lecture lecture)
     {
         String login = "Crust";
         String email = "crust@email.com";
@@ -46,7 +46,7 @@ public class RegistrationService {
 //            lecture = lectureOptional.get();
 //            registrationRepository.save(new Registration(user.getId(), lecture.getId()));
 //        }
-        registrationRepository.save(new Registration(user.getId(), lectureId));
+        registrationRepository.save(new Registration(user.getId(), lecture.getId()));
 
     }
 }

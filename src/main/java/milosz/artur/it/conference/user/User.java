@@ -1,5 +1,7 @@
 package milosz.artur.it.conference.user;
 
+import milosz.artur.it.conference.models.UserResponse;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -45,6 +47,11 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserResponse toUserResponse()
+    {
+        return new UserResponse(this.login, this.email);
     }
 
 }
