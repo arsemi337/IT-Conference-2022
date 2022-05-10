@@ -2,17 +2,14 @@ package milosz.artur.it.conference.lecture;
 
 import milosz.artur.it.conference.lecture.ex.LectureNotFoundException;
 import milosz.artur.it.conference.models.ConferenceResponse;
+import milosz.artur.it.conference.models.ReadLecturesResponse;
 import milosz.artur.it.conference.registration.Registration;
 import milosz.artur.it.conference.registration.RegistrationRepository;
+import milosz.artur.it.conference.registration.ex.RegistrationForUserNotFound;
 import milosz.artur.it.conference.user.User;
 import milosz.artur.it.conference.user.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -42,15 +39,19 @@ public class LectureService {
         return new ConferenceResponse(this.getAll());
     }
 
-    public List<Lecture> getLecturesOfUserByLogin(String login)
+    public List<ReadLecturesResponse> getLecturesOfUserByLogin(String login)
     {
         User user = userRepository.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
-        List<Registration> registrations = registrationRepository.getRegistrationsByUserId(user.getId());
-        List<Lecture> lectures = new ArrayList<>();
+        List<Registration> registrations = registrationRepository.getRegistrationsByUserId(user.getId())
+                .orElseThrow(RegistrationForUserNotFound::new);
+        List<ReadLecturesResponse> lectures = new ArrayList<>();
         for (Registration registration : registrations)
         {
-            Optional<Lecture> lecture = lectureRepository.findById(registration.getId());
-            lecture.ifPresent(lectures::add);
+            Optional<Lecture> lecture = lectureRepository.findById(registration.getLectureId());
+            if (lecture.isPresent())
+            {
+                lectures.add(lecture.get().toReadLecturesResponse(lecture.get().getTitle(), lecture.get().getStartTime()));
+            }
         }
         return lectures;
     }

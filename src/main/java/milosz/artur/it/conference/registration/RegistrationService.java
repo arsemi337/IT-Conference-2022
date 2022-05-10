@@ -2,6 +2,7 @@ package milosz.artur.it.conference.registration;
 
 import milosz.artur.it.conference.lecture.Lecture;
 import milosz.artur.it.conference.lecture.LectureRepository;
+import milosz.artur.it.conference.registration.ex.RegistrationForUserNotFound;
 import milosz.artur.it.conference.user.User;
 import milosz.artur.it.conference.user.UserRepository;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,9 @@ public class RegistrationService {
         return registrationRepository.findAll();
     }
 
-    List<Registration> getRegistrationsByUserId(UUID id)
+    public List<Registration> getRegistrationsByUserId(UUID id)
     {
-        return registrationRepository.getRegistrationsByUserId(id);
+        return registrationRepository.getRegistrationsByUserId(id).orElseThrow(RegistrationForUserNotFound::new);
     }
 
     public void createRegistration(User user, Lecture lecture)
