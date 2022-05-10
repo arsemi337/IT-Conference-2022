@@ -1,6 +1,7 @@
 package milosz.artur.it.conference.user.services;
 
 import milosz.artur.it.conference.models.ReadUserResponse;
+import milosz.artur.it.conference.models.UpdateUserRequest;
 import milosz.artur.it.conference.user.domain.User;
 import milosz.artur.it.conference.user.domain.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
@@ -48,5 +49,16 @@ public class UserService {
             }
             return user;
         }
+    }
+
+    public void updateEmail(UpdateUserRequest updateUserRequest)
+    {
+        String login = updateUserRequest.getLogin();
+        String oldEmail = updateUserRequest.getOldEmail();
+        String newEmail = updateUserRequest.getNewEmail();
+        User user = userRepository.getUserByLoginAndEmail(login, oldEmail)
+                .orElseThrow(() -> new UserNotFoundException(login, oldEmail));
+        user.setEmail(newEmail);
+        userRepository.save(user);
     }
 }

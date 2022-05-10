@@ -1,13 +1,12 @@
 package milosz.artur.it.conference.user;
 
 import milosz.artur.it.conference.models.ReadUserResponse;
+import milosz.artur.it.conference.models.UpdateUserRequest;
 import milosz.artur.it.conference.user.domain.User;
 import milosz.artur.it.conference.user.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,13 +21,20 @@ public class UserController {
 
     @GetMapping("/users")
     ResponseEntity<List<ReadUserResponse>> findAll()  {
-        List<ReadUserResponse> readUserRespons = userService.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(readUserRespons);
+        List<ReadUserResponse> readUserResponse = userService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(readUserResponse);
     }
 
     @GetMapping("/getByLogin{login}")
     User getByLogin(@PathVariable String login)
     {
         return userService.getByLogin(login);
+    }
+
+    @PutMapping("/users/updateEmail")
+    ResponseEntity<String> updateEmail(@RequestBody UpdateUserRequest updateUserRequest)
+    {
+        userService.updateEmail(updateUserRequest);
+        return ResponseEntity.status(HttpStatus.OK).body("Email został zaaktualizowany");
     }
 }
