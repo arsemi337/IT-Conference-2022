@@ -5,6 +5,7 @@ import milosz.artur.it.conference.lecture.domain.LectureRepository;
 import milosz.artur.it.conference.registration.domain.Registration;
 import milosz.artur.it.conference.registration.domain.RegistrationRepository;
 import milosz.artur.it.conference.registration.ex.RegistrationForUserNotFound;
+import milosz.artur.it.conference.registration.ex.RegistrationNotFound;
 import milosz.artur.it.conference.user.domain.User;
 import milosz.artur.it.conference.user.domain.UserRepository;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,14 @@ public class RegistrationService {
         return registrationRepository.findAll();
     }
 
-    public List<Registration> getRegistrationsByUserId(UUID id)
+    public List<Registration> getRegistrationsByUserId(UUID userId)
     {
-        return registrationRepository.getRegistrationsByUserId(id).orElseThrow(RegistrationForUserNotFound::new);
+        return registrationRepository.getRegistrationsByUserId(userId).orElseThrow(RegistrationForUserNotFound::new);
+    }
+
+    public Registration getRegistrationById(UUID uuid)
+    {
+        return registrationRepository.findById(uuid).orElseThrow(() -> new RegistrationNotFound(uuid));
     }
 
     public void createRegistration(User user, Lecture lecture)
@@ -56,5 +62,11 @@ public class RegistrationService {
         }
         printWriter.append(formatter.format(date) + '\t' + user.getEmail() + '\t' + "\"" + user.getLogin() + ", twoja rezerwacja została wykonana.\"");
         printWriter.close();
+    }
+
+    public void deleteRegistration(UUID uuid)
+    {
+        Registration registration = getRegistrationById(uuid);
+        registrationRepository.delete(registration);
     }
 }

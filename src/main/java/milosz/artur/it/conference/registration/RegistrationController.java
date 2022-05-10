@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class RegistrationController {
@@ -47,5 +48,12 @@ public class RegistrationController {
         } else {
             return ResponseEntity.badRequest().body("Nie dokonano rezerwacji. Wszystkie miejsca na tym wykładzie są już zajęte. ");
         }
+    }
+
+    @DeleteMapping("/registrations/delete")
+    ResponseEntity<String> deleteRegistration(@RequestParam UUID uuid)
+    {
+        registrationService.deleteRegistration(uuid);
+        return ResponseEntity.status(HttpStatus.OK).body("Rezerwacja została usunięta");
     }
 }
