@@ -1,10 +1,10 @@
 package milosz.artur.it.conference.models;
 
-public class ReadLecturesResponse {
+public class ReadLectureResponse {
     private final String topic;
     private final String startTime;
 
-    public ReadLecturesResponse(String topic, String startTime) {
+    public ReadLectureResponse(String topic, String startTime) {
         this.topic = topic;
         this.startTime = startTime;
     }

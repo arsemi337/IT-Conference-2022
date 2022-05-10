@@ -1,6 +1,8 @@
 package milosz.artur.it.conference.user;
 
-import milosz.artur.it.conference.models.UserResponse;
+import milosz.artur.it.conference.models.ReadUserResponse;
+import milosz.artur.it.conference.user.domain.User;
+import milosz.artur.it.conference.user.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +21,9 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    ResponseEntity<List<UserResponse>> findAll()  {
-        List<UserResponse> userResponses = userService.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(userResponses);
+    ResponseEntity<List<ReadUserResponse>> findAll()  {
+        List<ReadUserResponse> readUserRespons = userService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(readUserRespons);
     }
 
     @GetMapping("/getByLogin{login}")

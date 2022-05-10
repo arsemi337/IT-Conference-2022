@@ -1,10 +1,12 @@
-package milosz.artur.it.conference.registration;
+package milosz.artur.it.conference.registration.services;
 
-import milosz.artur.it.conference.lecture.Lecture;
-import milosz.artur.it.conference.lecture.LectureRepository;
+import milosz.artur.it.conference.lecture.domain.Lecture;
+import milosz.artur.it.conference.lecture.domain.LectureRepository;
+import milosz.artur.it.conference.registration.domain.Registration;
+import milosz.artur.it.conference.registration.domain.RegistrationRepository;
 import milosz.artur.it.conference.registration.ex.RegistrationForUserNotFound;
-import milosz.artur.it.conference.user.User;
-import milosz.artur.it.conference.user.UserRepository;
+import milosz.artur.it.conference.user.domain.User;
+import milosz.artur.it.conference.user.domain.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -26,7 +28,7 @@ public class RegistrationService {
         this.lectureRepository = lectureRepository;
     }
 
-    List<Registration> getAll()
+    public List<Registration> getAll()
     {
         return registrationRepository.findAll();
     }

@@ -1,7 +1,6 @@
-package milosz.artur.it.conference.lecture;
+package milosz.artur.it.conference.lecture.domain;
 
-import milosz.artur.it.conference.models.ReadLecturesRequest;
-import milosz.artur.it.conference.models.ReadLecturesResponse;
+import milosz.artur.it.conference.models.ReadLectureResponse;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -72,9 +71,9 @@ public class Lecture {
         this.availablePlaces = availablePlaces;
     }
 
-    public ReadLecturesResponse toReadLecturesResponse(String topic, String startTime)
+    public ReadLectureResponse toReadLecturesResponse(String topic, String startTime)
     {
-        return new ReadLecturesResponse(topic, startTime);
+        return new ReadLectureResponse(topic, startTime);
     }
 
     public void decreaseAvailablePlacesNumber()

@@ -1,13 +1,15 @@
-package milosz.artur.it.conference.lecture;
+package milosz.artur.it.conference.lecture.services;
 
+import milosz.artur.it.conference.lecture.domain.Lecture;
+import milosz.artur.it.conference.lecture.domain.LectureRepository;
 import milosz.artur.it.conference.lecture.ex.LectureNotFoundException;
-import milosz.artur.it.conference.models.ConferenceResponse;
-import milosz.artur.it.conference.models.ReadLecturesResponse;
-import milosz.artur.it.conference.registration.Registration;
-import milosz.artur.it.conference.registration.RegistrationRepository;
+import milosz.artur.it.conference.models.ReadConferenceResponse;
+import milosz.artur.it.conference.models.ReadLectureResponse;
+import milosz.artur.it.conference.registration.domain.Registration;
+import milosz.artur.it.conference.registration.domain.RegistrationRepository;
 import milosz.artur.it.conference.registration.ex.RegistrationForUserNotFound;
-import milosz.artur.it.conference.user.User;
-import milosz.artur.it.conference.user.UserRepository;
+import milosz.artur.it.conference.user.domain.User;
+import milosz.artur.it.conference.user.domain.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.*;
@@ -35,16 +37,16 @@ public class LectureService {
         return lectureRepository.findAll();
     }
 
-    public ConferenceResponse conferencePlan()  {
-        return new ConferenceResponse(this.getAll());
+    public ReadConferenceResponse conferencePlan()  {
+        return new ReadConferenceResponse(this.getAll());
     }
 
-    public List<ReadLecturesResponse> getLecturesOfUserByLogin(String login)
+    public List<ReadLectureResponse> getLecturesOfUserByLogin(String login)
     {
         User user = userRepository.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
         List<Registration> registrations = registrationRepository.getRegistrationsByUserId(user.getId())
                 .orElseThrow(RegistrationForUserNotFound::new);
-        List<ReadLecturesResponse> lectures = new ArrayList<>();
+        List<ReadLectureResponse> lectures = new ArrayList<>();
         for (Registration registration : registrations)
         {
             Optional<Lecture> lecture = lectureRepository.findById(registration.getLectureId());

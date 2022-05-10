@@ -1,10 +1,12 @@
 package milosz.artur.it.conference.registration;
 
-import milosz.artur.it.conference.lecture.Lecture;
-import milosz.artur.it.conference.lecture.LectureService;
+import milosz.artur.it.conference.lecture.domain.Lecture;
+import milosz.artur.it.conference.lecture.services.LectureService;
 import milosz.artur.it.conference.models.CreateRegistrationRequest;
-import milosz.artur.it.conference.user.User;
-import milosz.artur.it.conference.user.UserService;
+import milosz.artur.it.conference.registration.domain.Registration;
+import milosz.artur.it.conference.registration.services.RegistrationService;
+import milosz.artur.it.conference.user.domain.User;
+import milosz.artur.it.conference.user.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

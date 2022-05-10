@@ -1,4 +1,4 @@
-package milosz.artur.it.conference.registration;
+package milosz.artur.it.conference.registration.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

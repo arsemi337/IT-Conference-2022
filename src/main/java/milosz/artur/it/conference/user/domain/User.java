@@ -1,6 +1,6 @@
-package milosz.artur.it.conference.user;
+package milosz.artur.it.conference.user.domain;
 
-import milosz.artur.it.conference.models.UserResponse;
+import milosz.artur.it.conference.models.ReadUserResponse;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -49,9 +49,9 @@ public class User {
         this.email = email;
     }
 
-    public UserResponse toUserResponse()
+    public ReadUserResponse toUserResponse()
     {
-        return new UserResponse(this.login, this.email);
+        return new ReadUserResponse(this.login, this.email);
     }
 
 }

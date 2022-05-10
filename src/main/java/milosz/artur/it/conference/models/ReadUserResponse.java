@@ -1,11 +1,9 @@
 package milosz.artur.it.conference.models;
 
-import java.util.UUID;
-
-public class UserResponse {
+public class ReadUserResponse {
     private final String login, email;
 
-    public UserResponse(String login, String email) {
+    public ReadUserResponse(String login, String email) {
         this.login = login;
         this.email = email;
     }

@@ -1,7 +1,8 @@
 package milosz.artur.it.conference.lecture;
 
-import milosz.artur.it.conference.models.ConferenceResponse;
-import milosz.artur.it.conference.models.ReadLecturesResponse;
+import milosz.artur.it.conference.lecture.services.LectureService;
+import milosz.artur.it.conference.models.ReadConferenceResponse;
+import milosz.artur.it.conference.models.ReadLectureResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,13 @@ public class LectureController {
     }
 
     @GetMapping("/lectures/conferenceInfo")
-    ConferenceResponse conferenceInfo()
+    ReadConferenceResponse conferenceInfo()
     {
         return lectureService.conferencePlan();
     }
 
     @GetMapping("/lectures/allByUserLogin")
-    ResponseEntity<List<ReadLecturesResponse>> getByUserLogin(@RequestParam String login)
+    ResponseEntity<List<ReadLectureResponse>> getByUserLogin(@RequestParam String login)
     {
         return ResponseEntity.status(HttpStatus.OK).body(lectureService.getLecturesOfUserByLogin(login));
     }

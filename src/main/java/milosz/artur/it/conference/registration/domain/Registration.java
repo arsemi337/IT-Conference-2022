@@ -1,4 +1,4 @@
-package milosz.artur.it.conference.registration;
+package milosz.artur.it.conference.registration.domain;
 
 import javax.persistence.*;
 import java.util.UUID;

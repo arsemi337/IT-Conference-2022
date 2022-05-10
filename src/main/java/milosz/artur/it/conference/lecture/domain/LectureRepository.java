@@ -1,5 +1,6 @@
-package milosz.artur.it.conference.lecture;
+package milosz.artur.it.conference.lecture.domain;
 
+import milosz.artur.it.conference.lecture.domain.Lecture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.UUID;

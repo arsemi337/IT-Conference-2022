@@ -1,6 +1,8 @@
-package milosz.artur.it.conference.user;
+package milosz.artur.it.conference.user.services;
 
-import milosz.artur.it.conference.models.UserResponse;
+import milosz.artur.it.conference.models.ReadUserResponse;
+import milosz.artur.it.conference.user.domain.User;
+import milosz.artur.it.conference.user.domain.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import milosz.artur.it.conference.user.ex.UserWithGivenLoginAlreadyExistsException;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<UserResponse> findAll()  {
-        List<UserResponse> responses = new ArrayList<>();
+    public List<ReadUserResponse> findAll()  {
+        List<ReadUserResponse> responses = new ArrayList<>();
         List<User> users = userRepository.findAll();
         for (User user : users)
         {
