@@ -50,17 +50,27 @@ public class LectureService {
         for (Registration registration : registrations)
         {
             Optional<Lecture> lecture = lectureRepository.findById(registration.getLectureId());
-            if (lecture.isPresent())
-            {
-                lectures.add(lecture.get().toReadLecturesResponse(lecture.get().getTitle(), lecture.get().getStartTime()));
-            }
+            lecture.ifPresent(value -> lectures.add(value.toReadLecturesResponse(value.getTitle(), value.getStartTime())));
         }
         return lectures;
     }
 
-    public boolean canRegister(Lecture lecture)
+    public boolean arePlacesAvailable(Lecture lecture)
     {
         return lecture.getAvailablePlaces() > 0;
+    }
+
+    public boolean isUserAvailableAtThisTime(Lecture lecture, User user)
+    {
+        boolean isUserAvailableAtThisTime = true;
+        List<ReadLectureResponse> readLectureResponses = this.getLecturesOfUserByLogin(user.getLogin());
+        for (ReadLectureResponse readLectureResponse : readLectureResponses) {
+            if (readLectureResponse.getStartTime().equals(lecture.getStartTime())) {
+                isUserAvailableAtThisTime = false;
+                break;
+            }
+        }
+        return isUserAvailableAtThisTime;
     }
 
     public void decreaseAvailablePlacesNumber(Lecture lecture)
