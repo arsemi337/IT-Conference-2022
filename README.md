@@ -70,8 +70,8 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
     "path": "Third path",
     "startTime": "14:00",
     "registrationsPercentage": 0
-  },
-...
+  }
+]
 ```
 * GET: /lectures/pathsInterest - returns a list of learning paths alongside the percentage of registrations for each path
 ```json
@@ -100,7 +100,7 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
 }
 ```
 * DELETE: /registrations/delete - takes registration's id as a parameter and removes corresponding the registration. The registration's id may be taken from a respond of the '**/lectures/allByUserLogin**' endpoint
-```json
+```
 Rezerwacja została usunięta
 ```
 ### Users
