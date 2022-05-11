@@ -17,10 +17,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    public User() {}
+    public User() {
+    }
 
-    public User(String login, String email)
-    {
+    public User(String login, String email) {
         this.login = login;
         this.email = email;
     }
@@ -49,8 +49,7 @@ public class User {
         this.email = email;
     }
 
-    public ReadUserResponse toUserResponse()
-    {
+    public ReadUserResponse toUserResponse() {
         return new ReadUserResponse(this.login, this.email);
     }
 

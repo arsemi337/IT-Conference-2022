@@ -7,6 +7,6 @@ import java.util.UUID;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class LectureNotFoundException extends RuntimeException {
     public LectureNotFoundException(UUID uuid) {
-        super("Lecture with id " + uuid.toString() + " was not found");
+        super("Nie znaleziono wykładu o uuid " + uuid.toString() + ". ");
     }
 }

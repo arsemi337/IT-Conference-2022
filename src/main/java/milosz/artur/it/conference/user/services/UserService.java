@@ -7,6 +7,7 @@ import milosz.artur.it.conference.user.domain.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import milosz.artur.it.conference.user.ex.UserWithGivenLoginAlreadyExistsException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,44 +16,33 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    UserService(UserRepository userRepository)
-    {
+    UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<ReadUserResponse> findAll()  {
+    public List<ReadUserResponse> findAll() {
         List<ReadUserResponse> responses = new ArrayList<>();
         List<User> users = userRepository.findAll();
-        for (User user : users)
-        {
+        for (User user : users) {
             responses.add(user.toUserResponse());
         }
         return responses;
     }
 
-    public User getByLogin(String login)
-    {
-        return userRepository.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
-    }
-
-    public User tryToCreateNewUser(String login, String email)
-    {
+    public User tryToCreateNewUser(String login, String email) {
         Optional<User> userOptional = userRepository.getUserByLogin(login);
-        if (userOptional.isEmpty())
-        {
+        if (userOptional.isEmpty()) {
             return userRepository.save(new User(login, email));
         } else {
             User user = userOptional.get();
-            if (!user.getEmail().equals(email))
-            {
+            if (!user.getEmail().equals(email)) {
                 throw new UserWithGivenLoginAlreadyExistsException();
             }
             return user;
         }
     }
 
-    public void updateEmail(UpdateUserRequest updateUserRequest)
-    {
+    public void updateEmail(UpdateUserRequest updateUserRequest) {
         String login = updateUserRequest.getLogin();
         String oldEmail = updateUserRequest.getOldEmail();
         String newEmail = updateUserRequest.getNewEmail();

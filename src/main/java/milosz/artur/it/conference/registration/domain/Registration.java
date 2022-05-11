@@ -15,10 +15,10 @@ public class Registration {
     @Column(name = "lectureId")
     private UUID lectureId;
 
-    public Registration() {}
+    public Registration() {
+    }
 
-    public Registration(UUID userId, UUID lectureId)
-    {
+    public Registration(UUID userId, UUID lectureId) {
         this.userId = userId;
         this.lectureId = lectureId;
     }

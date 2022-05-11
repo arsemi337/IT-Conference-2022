@@ -1,6 +1,7 @@
 package milosz.artur.it.conference.models;
 
 import milosz.artur.it.conference.lecture.domain.Lecture;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -14,8 +15,7 @@ public class ReadConferenceResponse {
     private final List<String> lectures = new ArrayList<>();
 
     public ReadConferenceResponse(List<Lecture> lectures) {
-        for (Lecture lecture : lectures)
-        {
+        for (Lecture lecture : lectures) {
             this.lectures.add(lecture.toString());
         }
     }

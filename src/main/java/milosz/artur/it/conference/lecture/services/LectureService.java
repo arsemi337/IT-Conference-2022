@@ -16,7 +16,6 @@ import milosz.artur.it.conference.user.domain.UserRepository;
 import milosz.artur.it.conference.user.ex.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
 @Service
@@ -25,48 +24,41 @@ public class LectureService {
     private final UserRepository userRepository;
     private final RegistrationRepository registrationRepository;
 
-    LectureService(LectureRepository lectureRepository, UserRepository userRepository, RegistrationRepository registrationRepository)
-    {
+    LectureService(LectureRepository lectureRepository, UserRepository userRepository, RegistrationRepository registrationRepository) {
         this.lectureRepository = lectureRepository;
         this.userRepository = userRepository;
         this.registrationRepository = registrationRepository;
     }
 
-    public Lecture findById(UUID uuid)
-    {
+    public Lecture findById(UUID uuid) {
         return lectureRepository.findById(uuid).orElseThrow(() -> new LectureNotFoundException(uuid));
     }
 
-    public List<Lecture> getAll()
-    {
+    public List<Lecture> getAll() {
         return lectureRepository.findAll();
     }
 
-    public ReadConferenceResponse conferencePlan()  {
+    public ReadConferenceResponse conferencePlan() {
         return new ReadConferenceResponse(this.getAll());
     }
 
-    public List<ReadLectureResponse> getLecturesOfUserByLogin(String login)
-    {
+    public List<ReadLectureResponse> getLecturesOfUserByLogin(String login) {
         User user = userRepository.getUserByLogin(login).orElseThrow(() -> new UserNotFoundException(login));
         List<Registration> registrations = registrationRepository.getRegistrationsByUserId(user.getId())
                 .orElseThrow(RegistrationForUserNotFound::new);
         List<ReadLectureResponse> lectures = new ArrayList<>();
-        for (Registration registration : registrations)
-        {
+        for (Registration registration : registrations) {
             Optional<Lecture> lecture = lectureRepository.findById(registration.getLectureId());
             lecture.ifPresent(value -> lectures.add(value.toReadLecturesResponse(value.getTitle(), value.getStartTime())));
         }
         return lectures;
     }
 
-    public boolean arePlacesAvailable(Lecture lecture)
-    {
+    public boolean arePlacesAvailable(Lecture lecture) {
         return lecture.getAvailablePlaces() > 0;
     }
 
-    public boolean isUserAvailableAtThisTime(Lecture lecture, User user)
-    {
+    public boolean isUserAvailableAtThisTime(Lecture lecture, User user) {
         boolean isUserAvailableAtThisTime = true;
         List<ReadLectureResponse> readLectureResponses = this.getLecturesOfUserByLogin(user.getLogin());
         for (ReadLectureResponse readLectureResponse : readLectureResponses) {
@@ -78,18 +70,15 @@ public class LectureService {
         return isUserAvailableAtThisTime;
     }
 
-    public void decreaseAvailablePlacesNumber(Lecture lecture)
-    {
+    public void decreaseAvailablePlacesNumber(Lecture lecture) {
         lecture.decreaseAvailablePlacesNumber();
         lectureRepository.save(lecture);
     }
 
-    public List<ReadLecturesByInterestResponse> getLecturesByInterest()
-    {
+    public List<ReadLecturesByInterestResponse> getLecturesByInterest() {
         List<Lecture> lectures = lectureRepository.findAll();
         List<ReadLecturesByInterestResponse> readLecturesByInterestResponses = new ArrayList<>();
-        for (Lecture lecture : lectures)
-        {
+        for (Lecture lecture : lectures) {
             readLecturesByInterestResponses.add(lecture.toReadLecturesByInterestResponse(
                     lecture.getTitle(),
                     lecture.getPath(),
@@ -102,8 +91,7 @@ public class LectureService {
         return readLecturesByInterestResponses;
     }
 
-    public List<ReadPathsByInterestResponse> getPathsByInterest()
-    {
+    public List<ReadPathsByInterestResponse> getPathsByInterest() {
         List<Lecture> lecturesFirstPath = lectureRepository.getLecturesByPath("First path")
                 .orElseThrow(() -> new LectureNotFoundByPathException("First path"));
         List<Lecture> lecturesSecondPath = lectureRepository.getLecturesByPath("Second path")
@@ -113,26 +101,23 @@ public class LectureService {
 
         int firstPathAvailablePlaces = 0, secondPathAvailablePlaces = 0, thirdPathAvailablePlaces = 0;
 
-        for (Lecture lecture : lecturesFirstPath)
-        {
+        for (Lecture lecture : lecturesFirstPath) {
             firstPathAvailablePlaces += lecture.getAvailablePlaces();
         }
-        for (Lecture lecture : lecturesSecondPath)
-        {
+        for (Lecture lecture : lecturesSecondPath) {
             secondPathAvailablePlaces += lecture.getAvailablePlaces();
         }
-        for (Lecture lecture : lecturesThirdPath)
-        {
+        for (Lecture lecture : lecturesThirdPath) {
             thirdPathAvailablePlaces += lecture.getAvailablePlaces();
         }
 
-        int firstPathRegistrations = 0, secondPathRegistrations = 0, thirdPathRegistrations = 0;
+        int firstPathRegistrations, secondPathRegistrations, thirdPathRegistrations;
 
         firstPathRegistrations = 15 - firstPathAvailablePlaces;
         secondPathRegistrations = 15 - secondPathAvailablePlaces;
         thirdPathRegistrations = 15 - thirdPathAvailablePlaces;
 
-        double firstPathRegistrationsPercentage = 0.0, secondPathRegistrationsPercentage = 0.0, thirdPathRegistrationsPercentage = 0.0;
+        double firstPathRegistrationsPercentage, secondPathRegistrationsPercentage, thirdPathRegistrationsPercentage;
 
         firstPathRegistrationsPercentage = firstPathRegistrations / 15.0 * 100;
         secondPathRegistrationsPercentage = secondPathRegistrations / 15.0 * 100;

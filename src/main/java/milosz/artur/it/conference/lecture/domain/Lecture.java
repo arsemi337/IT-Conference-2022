@@ -1,6 +1,5 @@
 package milosz.artur.it.conference.lecture.domain;
 
-import io.swagger.models.auth.In;
 import milosz.artur.it.conference.models.ReadLectureResponse;
 import milosz.artur.it.conference.models.ReadLecturesByInterestResponse;
 
@@ -23,10 +22,10 @@ public class Lecture implements Comparable<Lecture> {
     @Column(name = "availablePlaces")
     private Integer availablePlaces;
 
-    public Lecture() {}
+    public Lecture() {
+    }
 
-    public Lecture(String path, String title, String startTime, Integer availablePlaces)
-    {
+    public Lecture(String path, String title, String startTime, Integer availablePlaces) {
         this.path = path;
         this.title = title;
         this.startTime = startTime;
@@ -73,24 +72,20 @@ public class Lecture implements Comparable<Lecture> {
         this.availablePlaces = availablePlaces;
     }
 
-    public ReadLectureResponse toReadLecturesResponse(String topic, String startTime)
-    {
+    public ReadLectureResponse toReadLecturesResponse(String topic, String startTime) {
         return new ReadLectureResponse(topic, startTime);
     }
 
     public ReadLecturesByInterestResponse toReadLecturesByInterestResponse(
-            String title, String path, String startTime, Double registrationsPercentage)
-    {
+            String title, String path, String startTime, Double registrationsPercentage) {
         return new ReadLecturesByInterestResponse(title, path, startTime, registrationsPercentage);
     }
 
-    public double getPercentageOfRegistrations()
-    {
+    public double getPercentageOfRegistrations() {
         return (5.0 - availablePlaces) / 5.0 * 100.0;
     }
 
-    public void decreaseAvailablePlacesNumber()
-    {
+    public void decreaseAvailablePlacesNumber() {
         this.availablePlaces -= 1;
     }
 
