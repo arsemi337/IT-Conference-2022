@@ -1,13 +1,15 @@
 package milosz.artur.it.conference.lecture.domain;
 
+import io.swagger.models.auth.In;
 import milosz.artur.it.conference.models.ReadLectureResponse;
+import milosz.artur.it.conference.models.ReadLecturesByInterestResponse;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
 @Table(name = "Lectures")
-public class Lecture {
+public class Lecture implements Comparable<Lecture> {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -19,11 +21,11 @@ public class Lecture {
     @Column(name = "startTime")
     private String startTime;
     @Column(name = "availablePlaces")
-    private int availablePlaces;
+    private Integer availablePlaces;
 
     public Lecture() {}
 
-    public Lecture(String path, String title, String startTime, int availablePlaces)
+    public Lecture(String path, String title, String startTime, Integer availablePlaces)
     {
         this.path = path;
         this.title = title;
@@ -47,7 +49,7 @@ public class Lecture {
         return startTime;
     }
 
-    public int getAvailablePlaces() {
+    public Integer getAvailablePlaces() {
         return availablePlaces;
     }
 
@@ -67,13 +69,24 @@ public class Lecture {
         this.startTime = startTime;
     }
 
-    public void setAvailablePlaces(int availablePlaces) {
+    public void setAvailablePlaces(Integer availablePlaces) {
         this.availablePlaces = availablePlaces;
     }
 
     public ReadLectureResponse toReadLecturesResponse(String topic, String startTime)
     {
         return new ReadLectureResponse(topic, startTime);
+    }
+
+    public ReadLecturesByInterestResponse toReadLecturesByInterestResponse(
+            String title, String path, String startTime, Double registrationsPercentage)
+    {
+        return new ReadLecturesByInterestResponse(title, path, startTime, registrationsPercentage);
+    }
+
+    public double getPercentageOfRegistrations()
+    {
+        return (5.0 - availablePlaces) / 5.0 * 100.0;
     }
 
     public void decreaseAvailablePlacesNumber()
@@ -88,5 +101,10 @@ public class Lecture {
                 ", title='" + title + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", availablePlaces=" + availablePlaces;
+    }
+
+    @Override
+    public int compareTo(Lecture o) {
+        return getAvailablePlaces().compareTo(o.getAvailablePlaces());
     }
 }
