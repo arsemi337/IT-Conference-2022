@@ -2,6 +2,9 @@
 
 IT-Conference-2022 is a web-app written in Java for an IT conference service. The project is a Spring Boot based application, which makes use of an H2 in-memory database. Access to the system is possible by REST API. 
 
+### Database diagram
+![alt text](https://github.com/Arsemi337/IT-Conference-2022/blob/main/database_diagram.png?raw=true)
+
 ## How to use
 
 Enter the project's main directory. Then, run [mvn](https://maven.apache.org/run.html) command to run the project. 
