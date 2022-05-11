@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import milosz.artur.it.conference.lecture.domain.Lecture;
 import milosz.artur.it.conference.lecture.services.LectureService;
 import milosz.artur.it.conference.models.CreateRegistrationRequest;
+import milosz.artur.it.conference.registration.domain.Registration;
 import milosz.artur.it.conference.registration.services.RegistrationService;
 import milosz.artur.it.conference.user.domain.User;
 import milosz.artur.it.conference.user.services.UserService;
@@ -46,6 +47,10 @@ public class RegistrationController {
 
     @DeleteMapping("/registrations/delete")
     ResponseEntity<String> deleteRegistration(@RequestParam UUID uuid) {
+        Registration registration = registrationService.getRegistrationById(uuid);
+        Lecture lecture = lectureService.findById(registration.getLectureId());
+        lecture.increaseAvailablePlacesNumber();
+
         registrationService.deleteRegistration(uuid);
         return ResponseEntity.status(HttpStatus.OK).body("Rezerwacja została usunięta");
     }

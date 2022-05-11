@@ -72,8 +72,8 @@ public class Lecture implements Comparable<Lecture> {
         this.availablePlaces = availablePlaces;
     }
 
-    public ReadLectureResponse toReadLecturesResponse(String topic, String startTime) {
-        return new ReadLectureResponse(topic, startTime);
+    public ReadLectureResponse toReadLecturesResponse(UUID registrationId, String topic, String startTime) {
+        return new ReadLectureResponse(registrationId, topic, startTime);
     }
 
     public ReadLecturesByInterestResponse toReadLecturesByInterestResponse(
@@ -88,6 +88,8 @@ public class Lecture implements Comparable<Lecture> {
     public void decreaseAvailablePlacesNumber() {
         this.availablePlaces -= 1;
     }
+
+    public void increaseAvailablePlacesNumber() { this.availablePlaces += 1; }
 
     @Override
     public String toString() {

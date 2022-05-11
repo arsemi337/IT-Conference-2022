@@ -49,7 +49,8 @@ public class LectureService {
         List<ReadLectureResponse> lectures = new ArrayList<>();
         for (Registration registration : registrations) {
             Optional<Lecture> lecture = lectureRepository.findById(registration.getLectureId());
-            lecture.ifPresent(value -> lectures.add(value.toReadLecturesResponse(value.getTitle(), value.getStartTime())));
+            lecture.ifPresent(value -> lectures.add(value.toReadLecturesResponse(
+                    registration.getId(), value.getTitle(), value.getStartTime())));
         }
         return lectures;
     }
