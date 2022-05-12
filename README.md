@@ -15,7 +15,7 @@ The most convenient way to test the API is to enter **localhost:{hostport}/swagg
 Url addresses are divided into three groups: Lectures, Registrations, and Users. Each of them consists of the corresponding endpoints. 
 
 ### Lectures
-* GET: /lectures/allByUserLogin - takes the user's login as a parameter and returns a list of lectures, the user is registered for
+* GET: /lectures/allByUserLogin - takes the user's login as a parameter and returns a list of lectures, the user is registered for. Sample response to a request **localhost:{hostport}/lectures/allByUserLogin?login={login}**: 
 ```json
 [
   {
@@ -30,7 +30,7 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
   }
 ]
 ```
-* GET: /lectures/conferenceInfo - returns general information on the conference together with the list of lectures
+* GET: /lectures/conferenceInfo - returns general information on the conference together with the list of lectures. Sample response to a request **localhost:{hostport}/lectures/conferenceInfo**: 
 ```json
 {
   "date": "2020-06-01",
@@ -50,7 +50,7 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
   ]
 }
 ```
-* GET: /lectures/lecturesInterest - returns a list of lectures alongside the percentage of registrations for each lecture
+* GET: /lectures/lecturesInterest - returns a list of lectures alongside the percentage of registrations for each lecture. The list is sorted starting from the lecture with the highest interest percentage. Sample response to a request **localhost:{hostport}/lectures/lecturesInterest**: 
 ```json
 [
   {
@@ -73,7 +73,7 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
   }
 ]
 ```
-* GET: /lectures/pathsInterest - returns a list of learning paths alongside the percentage of registrations for each path
+* GET: /lectures/pathsInterest - returns a list of learning paths alongside the percentage of registrations for each path. The list is sorted starting from the path with the highest interest percentage. Sample response to a request **localhost:{hostport}/lectures/pathsInterest**: 
 ```json
 [
   {
@@ -91,7 +91,7 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
 ]
 ```
 ### Registrations
-* POST: /registrations/create - creates a registration for a lecture based on the request model passed in the request's body. The model includes the lecture's id, user's login, and user's email. It is possible to sign up for a lecture only if there are still places available. Additionally, if there already exists the user with given login and a different email, he or she will be asked to enter a new login. Also, each registration results in sending a confirmation email, which is a new row in a file '**powiadomienia**' that consists of the email's date, addressee, and the email content
+* POST: /registrations/create - creates a registration for a lecture based on the request model passed in the request's body. The model includes the lecture's id, user's login, and user's email. It is possible to sign up for a lecture only if there are still places available. Additionally, if there already exists the user with given login and a different email, he or she will be asked to enter a new login. Also, each registration results in sending a confirmation email, which is a new row in a file '**powiadomienia**' that consists of the email's date, addressee, and the email content. Sample request body:
 ```json
 {
   "lectureId": "8c61da0f-4f6d-47cd-8053-eeeccfc32471",
@@ -99,12 +99,12 @@ Url addresses are divided into three groups: Lectures, Registrations, and Users.
   "userLogin": "man"
 }
 ```
-* DELETE: /registrations/delete - takes registration's id as a parameter and removes corresponding the registration. The registration's id may be taken from a respond of the '**/lectures/allByUserLogin**' endpoint
+* DELETE: /registrations/delete - takes registration's id as a parameter and removes corresponding the registration. The registration's id may be taken from a response of the '**/lectures/allByUserLogin**' endpoint. Sample response to a request **localhost:{hostport}/registrations/delete?uuid={uuid}**:
 ```
 Rezerwacja została usunięta
 ```
 ### Users
-* GET: /users - returns a list of all users. Each list item consists of the user's login and user's email 
+* GET: /users - returns a list of all users. Each list item consists of the user's login and user's email. Sample response to a request **localhost:{hostport}/users**: 
 ```json
 [
   {
@@ -117,7 +117,7 @@ Rezerwacja została usunięta
   }
 ]
 ```
-* PUT: /users/updateEmail - updates the user's email based on the request model passed in the request's body. The model includes the user's login, old email, and new email
+* PUT: /users/updateEmail - updates the user's email based on the request model passed in the request's body. The model includes the user's login, old email, and new email. Sample request body: 
 ```json
 {
   "login": "rayes",
