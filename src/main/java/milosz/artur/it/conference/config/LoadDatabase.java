@@ -1,4 +1,4 @@
-package milosz.artur.it.conference;
+package milosz.artur.it.conference.config;
 
 import milosz.artur.it.conference.lecture.domain.Lecture;
 import milosz.artur.it.conference.lecture.domain.LectureRepository;
